@@ -127,7 +127,7 @@
   <audio id="song" src="song.mp3"></audio>
 </div>
 
-<script>
+<<script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const msg = document.getElementById("msg");
@@ -148,11 +148,21 @@ setInterval(() => {
   setTimeout(()=>heart.remove(),4000);
 }, 350);
 
+// Keep NO inside screen always
 function moveNo(){
-  const x = Math.random() * (window.innerWidth - 120);
-  const y = Math.random() * (window.innerHeight - 80);
+  const padding = 20;
+  const btnW = noBtn.offsetWidth;
+  const btnH = noBtn.offsetHeight;
+
+  const maxX = window.innerWidth - btnW - padding;
+  const maxY = window.innerHeight - btnH - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+  noBtn.style.zIndex = 5;
 }
 
 noBtn.addEventListener("click", () => {
@@ -175,6 +185,10 @@ noBtn.addEventListener("click", () => {
 
 yesBtn.addEventListener("click", () => {
 
+  // Hide buttons forever
+  noBtn.style.display="none";
+  yesBtn.style.display="none";
+
   // heart burst
   for(let i=0;i<25;i++){
     const h=document.createElement("div");
@@ -189,6 +203,7 @@ yesBtn.addEventListener("click", () => {
   document.getElementById("title").style.display="none";
   msg.innerText = "";
   card.style.display="block";
+  card.style.zIndex=10;
 
   final.innerText = "Mujhe to pta he tha tum ha kar doge 💖\nI love you baby";
 
@@ -196,6 +211,7 @@ yesBtn.addEventListener("click", () => {
   song.play();
 });
 </script>
+
 
 </body>
 </html>
